@@ -21,7 +21,7 @@ const ComputersCanvas = dynamic(() => import("./canvas/Computers"), {
 		<div className="absolute inset-0" aria-hidden />
 	),
 });
-
+  
 const heroTechIcons = [
 	{
 		Icon: FaReact,
@@ -67,7 +67,7 @@ const heroSocialLinks = [
 		href: "https://github.com",
 		color: "hover:text-gray-300",
 		label: "GitHub",
-	},
+	}, 
 	{
 		Icon: FaTelegram,
 		href: "https://t.me/vikashhappy",
@@ -99,18 +99,12 @@ function Hero({ loading, isMobile }) {
         initial="hidden"
         whileInView={!loading && "show"}
         viewport={{ once: true, amount: 0.25 }}
-        className="md:w-2/3 w-full md:h-[750px] sm:h-[300px] h-[220px] md:ml-[620px] top-[10%]   absolute md:top-[150px] "
+        className="md:w-2/3 w-full md:h-[500px] sm:h-[300px] h-[220px] md:ml-[620px] top-[10%]   absolute md:top-[100px] "
       >
         <ComputersCanvas isMobile={isMobile} />
       </motion.div>
 
-
-
-
-
-
-
-      <div className="absolute top-[250px] md:top-[140px] left-0 md:left-[5%]  max-w-2xl  flex flex-row items-start gap-5">
+      <div className="absolute top-[260px] md:top-[80px] left-0 md:left-[5%]  max-w-2xl  flex flex-row items-start gap-5">
 
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-primary" />
@@ -128,20 +122,15 @@ function Hero({ loading, isMobile }) {
           </h1>
 
 
-
-          <p className={`heroSubText mt-2 tracking-wide`}>
+          <p className={`heroSubText  tracking-wide`}>
             <TypeAnimation
               sequence={heroTexts}
-              // preRenderFirstString={true}
+              preRenderFirstString={true}
               wrapper="span"
               cursor={true}
               repeat={Infinity}
             />
           </p>
-
-
-
-
 
           {/* Description */}
           <motion.p
@@ -149,7 +138,7 @@ function Hero({ loading, isMobile }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
 
-            className="mt-6 text-gray-200 text-base md:text-lg leading-relaxed"
+            className=" text-gray-200 text-base md:text-lg leading-relaxed  md:w-3/4"
           >
             Hi, I&apos;m a passionate <span className="text-cyan-400 font-semibold">BCA graduate</span> specializing in modern web development.
             I build exceptional digital experiences using <span className="text-blue-400">React</span>,{' '}
@@ -158,19 +147,15 @@ function Hero({ loading, isMobile }) {
 
 
           </motion.p>
-
-
-
-
           {/* Tech Stack & Socials */}
-          <div className="mt-5 space-y-5">
+          <div className="mt-2 space-y-3">
             {/* Currently Working On */}
             <div className="space-y-4 mb-10">
               <h3 className="text-gray-200 font-medium tracking-wider flex items-center justify-center lg:justify-start gap-2 text-sm">
                 <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
                 CURRENTLY WORKING WITH
               </h3>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-6">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                 {heroTechIcons.map((tech, index) => (
                   <motion.div
                     key={tech.label}
@@ -197,7 +182,7 @@ function Hero({ loading, isMobile }) {
                 <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
                 CONNECT WITH ME
               </h3>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-6">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-5">
                 {heroSocialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}

@@ -103,7 +103,7 @@ function Experience() {
       <div className="max-w-7xl mx-auto relative">
         <motion.div
           variants={textVariant()}
-          initial="hidden"
+          // initial="hidden"
           animate={isInView ? "show" : "hidden"}
           className="text-center mb-20"
         >
@@ -111,7 +111,7 @@ function Experience() {
             <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
             <span className="text-sm font-medium dark:text-purple-400 text-purple-600">MY JOURNEY</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold dark:text-white text-gray-900">
+          <h2 className="text-5xl  font-bold dark:text-white text-gray-900">
             Professional <span className="text-purple-500">Experience</span>
           </h2>
         </motion.div>
