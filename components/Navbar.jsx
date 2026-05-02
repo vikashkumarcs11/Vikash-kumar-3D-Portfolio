@@ -44,7 +44,7 @@ const Navbar = () => {
       setScrollProgress(progress);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -70,7 +70,14 @@ const Navbar = () => {
           <div className="flex items-center space-x-2 group cursor-pointer">
             <div className="relative w-16 h-16">
               <div className="relative w-full h-full rounded-full border-2 border-slate-700 overflow-hidden group-hover:border-cyan-500/50 transition-colors">
-                <Image src="/assets/myphoto.jpg" width={70} height={70} alt="Vikash Kumar" />
+                <Image
+                  src="/assets/myphoto.jpg"
+                  width={70}
+                  height={70}
+                  sizes="70px"
+                  priority
+                  alt="Vikash Kumar"
+                />
               </div>
             </div>
 

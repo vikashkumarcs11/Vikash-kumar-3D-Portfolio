@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
@@ -313,10 +314,14 @@ export default function UltimatePortfolioShowcase() {
 
                   {/* Image Container */}
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 480px"
+                      loading="lazy"
+                      quality={82}
+                      className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className={`absolute inset-0 ${project.color} opacity-30 mix-blend-overlay`} />
 

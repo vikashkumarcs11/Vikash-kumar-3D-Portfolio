@@ -1,17 +1,92 @@
-'use client';
+"use client";
 
+import dynamic from "next/dynamic";
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
-import { ComputersCanvas } from "./canvas";
+
 import { fadeIn, textVariant } from "@/utils/motion";
 import { heroTexts } from "@/constants";
 import { DiMongodb } from "react-icons/di";
 import { FaLinkedin, FaGithub, FaTelegram, FaFacebook, FaYoutube, FaReact } from "react-icons/fa";
 
-import { SiExpress, SiTailwindcss, SiThreedotjs, SiNodedotjs } from "react-icons/si";
+import { SiExpress, SiTailwindcss, SiNodedotjs } from "react-icons/si";
 
 import { TbBrandJavascript } from "react-icons/tb";
+
+const ComputersCanvas = dynamic(() => import("./canvas/Computers"), {
+	ssr: false,
+	loading: () => (
+		<div className="absolute inset-0" aria-hidden />
+	),
+});
+
+const heroTechIcons = [
+	{
+		Icon: FaReact,
+		label: "React",
+		color: "text-cyan-400",
+	},
+	{
+		Icon: TbBrandJavascript,
+		label: "JavaScript",
+		color: "text-yellow-400",
+	},
+	{
+		Icon: SiNodedotjs,
+		label: "Node.js",
+		color: "text-green-400",
+	},
+	{
+		Icon: SiExpress,
+		label: "Express",
+		color: "text-gray-300",
+	},
+	{
+		Icon: DiMongodb,
+		label: "MongoDB",
+		color: "text-green-400",
+	},
+	{
+		Icon: SiTailwindcss,
+		label: "Tailwind",
+		color: "text-sky-400",
+	},
+];
+
+const heroSocialLinks = [
+	{
+		Icon: FaLinkedin,
+		href: "https://www.linkedin.com/in/vikash-kumar-gt/",
+		color: "hover:text-blue-400",
+		label: "LinkedIn",
+	},
+	{
+		Icon: FaGithub,
+		href: "https://github.com",
+		color: "hover:text-gray-300",
+		label: "GitHub",
+	},
+	{
+		Icon: FaTelegram,
+		href: "https://t.me/vikashhappy",
+		color: "hover:text-sky-400",
+		label: "Telegram",
+	},
+	{
+		Icon: FaFacebook,
+		href: "https://www.facebook.com/profile.php?id=100006169817486",
+		color: "hover:text-blue-500",
+		label: "Facebook",
+	},
+	{
+		Icon: FaYoutube,
+		href: "#",
+		color: "hover:text-red-500",
+		label: "YouTube",
+	},
+];
 
 function Hero({ loading, isMobile }) {
   return (
@@ -96,15 +171,7 @@ function Hero({ loading, isMobile }) {
                 CURRENTLY WORKING WITH
               </h3>
               <div className="flex flex-wrap justify-center lg:justify-start gap-6">
-                {[
-                  { Icon: FaReact, label: 'React', color: 'text-cyan-400' },
-                  { Icon: TbBrandJavascript, label: 'JavaScript', color: 'text-yellow-400' },
-                  { Icon: SiNodedotjs, label: 'Node.js', color: 'text-green-400' },
-                  { Icon: SiExpress, label: 'Express', color: 'text-gray-300' },
-                  { Icon: DiMongodb, label: 'MongoDB', color: 'text-green-400' },
-                  { Icon: SiTailwindcss, label: 'Tailwind', color: 'text-sky-400' },
-
-                ].map((tech, index) => (
+                {heroTechIcons.map((tech, index) => (
                   <motion.div
                     key={tech.label}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -131,13 +198,7 @@ function Hero({ loading, isMobile }) {
                 CONNECT WITH ME
               </h3>
               <div className="flex flex-wrap justify-center lg:justify-start gap-6">
-                {[
-                  { Icon: FaLinkedin, href: "https://www.linkedin.com/in/vikash-kumar-gt/", color: "hover:text-blue-400", label: "LinkedIn" },
-                  { Icon: FaGithub, href: "https://github.com", color: "hover:text-gray-300", label: "GitHub" },
-                  { Icon: FaTelegram, href: "https://t.me/vikashhappy", color: "hover:text-sky-400", label: "Telegram" },
-                  { Icon: FaFacebook, href: "https://www.facebook.com/profile.php?id=100006169817486", color: "hover:text-blue-500", label: "Facebook" },
-                  { Icon: FaYoutube, href: "#", color: "hover:text-red-500", label: "YouTube" }
-                ].map((social, index) => (
+                {heroSocialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}
                     href={social.href}
@@ -195,4 +256,4 @@ function Hero({ loading, isMobile }) {
   );
 }
 
-export default Hero;
+export default memo(Hero);

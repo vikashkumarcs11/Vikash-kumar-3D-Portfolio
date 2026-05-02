@@ -8,6 +8,9 @@ const nextConfig = {
       "www.raw.githubusercontent.com",
       "raw.githubusercontent.com",
     ],
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    minimumCacheTTL: 60,
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports

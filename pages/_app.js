@@ -1,19 +1,93 @@
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
 import "@/styles/globals.css";
-
-
+import { PreLoader } from "@/components/Loader";
 
 export default function App({ Component, pageProps }) {
 	const [loading, setLoading] = useState(true);
+
 	useEffect(() => {
-		setTimeout(() => {
-			setLoading(false);
-		}, 3000);
-	}, []); 
+		const MIN_MS = 400;
+		const MAX_MS = 2200;
+		let dead = false;
+		let settleTimer = null;
+		const t0 = typeof performance !== "undefined" ? performance.now() : 0;
+
+		const applyMinDelay = () => {
+			clearTimeout(settleTimer);
+			const elapsed =
+				typeof performance !== "undefined" ? performance.now() - t0 : MIN_MS;
+			const remainder = Math.max(0, MIN_MS - elapsed);
+			settleTimer = setTimeout(() => {
+				if (!dead) setLoading(false);
+			}, remainder);
+		};
+
+		let finished = false;
+		const finish = () => {
+			if (dead || finished) return;
+			finished = true;
+			clearTimeout(hardCap);
+			applyMinDelay();
+		};
+
+		const hardCap = setTimeout(finish, MAX_MS);
+
+		const runIdle = () =>
+			new Promise((resolve) => {
+				if (typeof window === "undefined") {
+					resolve();
+					return;
+				}
+				if ("requestIdleCallback" in window) {
+					window.requestIdleCallback(() => resolve(), { timeout: 1200 });
+				} else {
+					requestAnimationFrame(() => resolve());
+				}
+			});
+
+		(async () => {
+			try {
+				if (
+					typeof document !== "undefined" &&
+					document.fonts &&
+					document.fonts.ready
+				) {
+					await document.fonts.ready;
+				}
+			} catch {
+				// ignore
+			}
+			await runIdle();
+			if (
+				typeof document !== "undefined" &&
+				document.readyState === "complete"
+			) {
+				finish();
+				return;
+			}
+			if (typeof window !== "undefined") {
+				window.addEventListener(
+					"load",
+					() => {
+						finish();
+					},
+					{ once: true }
+				);
+				return;
+			}
+			finish();
+		})().catch(() => finish());
+
+		return () => {
+			dead = true;
+			clearTimeout(hardCap);
+			clearTimeout(settleTimer);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (loading) {
@@ -79,9 +153,9 @@ export default function App({ Component, pageProps }) {
 			</Head>
 
 			<ThemeProvider attribute="class" defaultTheme="dark">
-				<Component {...pageProps}  />
-                <Analytics />
-				
+				<Component {...pageProps} loading={loading} />
+				{loading ? <PreLoader /> : null}
+				<Analytics />
 			</ThemeProvider>
 		</>
 	);

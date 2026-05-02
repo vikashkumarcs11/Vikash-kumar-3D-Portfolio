@@ -3,27 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo, useCallback } from "react";
 import { useTheme } from "next-themes";
 
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 import { fadeIn, textVariant } from "@/utils/motion";
 
-const Skill3DCard = ({ skill, index, theme }) => {
+const Skill3DCard = memo(function Skill3DCard({ skill, theme }) {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef(null);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
 
-    // Sirf is card ke coordinates nikalne ke liye
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
     setMousePosition({ x, y });
-  };
+  }, []);
+
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    setMousePosition({ x: 0, y: 0 });
+  }, []);
 
   return (
     <motion.div
@@ -43,11 +48,8 @@ const Skill3DCard = ({ skill, index, theme }) => {
         damping: 15
       }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setMousePosition({ x: 0, y: 0 });
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className="relative z-10" // Taaki hover wala card upar dikhe
       style={{ perspective: "1000px" }}
     >
@@ -75,6 +77,8 @@ const Skill3DCard = ({ skill, index, theme }) => {
                 src={skill.icon}
                 alt={skill.name}
                 fill
+                sizes="(max-width: 768px) 40px, 48px"
+                loading="lazy"
                 className="object-contain"
               />
             </div>
@@ -98,7 +102,7 @@ const Skill3DCard = ({ skill, index, theme }) => {
       </Link>
     </motion.div>
   );
-};
+});
 
 function Tech() {
   const { theme } = useTheme();
@@ -149,13 +153,8 @@ function Tech() {
 
             {/* Grid for Icons */}
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 place-items-center dark:bg-bgSecondaryDark bg-bgSecondaryLight">
-              {category.items.map((skill, skillIdx) => (
-                <Skill3DCard
-                  key={skill.name}
-                  skill={skill}
-                  index={skillIdx}
-                  theme={theme}
-                />
+              {category.items.map((skill) => (
+                <Skill3DCard key={skill.name} skill={skill} theme={theme} />
               ))}
             </div>
 

@@ -1,9 +1,4 @@
-import {
-  Preload,
-  useGLTF,
-  OrbitControls,
-  PerspectiveCamera, 
-} from "@react-three/drei";
+import { useGLTF, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
@@ -30,7 +25,7 @@ function Computers({ isMobile }) {
         dampingFactor={0.05}
         enablePan={false}
         autoRotateSpeed={4}
-        autoRotate={isMobile && true}
+        autoRotate={!!isMobile}
         makeDefault
       />
       <ComputerModel
@@ -45,20 +40,21 @@ function Computers({ isMobile }) {
 }
 
 function ComputersCanvas({ isMobile }) {
+  const maxDpr = isMobile ? 1.35 : 2;
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, maxDpr]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{
         outputColorSpace: THREE.SRGBColorSpace,
         alpha: true,
+        powerPreference: "high-performance",
       }}
       className="cursor-pointer"
     >
-      <Suspense >
+      <Suspense>
         <Computers isMobile={isMobile} />
       </Suspense>
-      <Preload all />
     </Canvas>
   );
 }

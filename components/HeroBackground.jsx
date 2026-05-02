@@ -16,6 +16,9 @@ function HeroBackground() {
           src={"/assets/background/blur-layer.png"}
           alt="blur-layer"
           fill={true}
+          sizes="100vw"
+          priority
+          quality={85}
         />
       </div>
       <Mountain3 className="w-full h-[408px] wave top-[347px]" />
