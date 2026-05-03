@@ -34,7 +34,7 @@ function ExperienceCard({ experience, index, theme, isActive, onClick }) {
           className="absolute inset-0 rounded-3xl border-2 border-purple-500/30 pointer-events-none"
         />
       )}
-      
+
       <div className="relative z-10">
         <h4 className="text-center font-bold text-lg bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
           {experience.company_name}
@@ -77,14 +77,14 @@ function Experience() {
   };
 
   return (
-    
+
     <section ref={containerRef} className="relative w-full min-h-screen  py-20 px-4 md:px-8 overflow-hidden">
       {/* Background decoration */}
-       <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
 
         <div className="absolute top-1/4 -left-40 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
 
-        <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />     
+        <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.02]"
@@ -103,8 +103,9 @@ function Experience() {
       <div className="max-w-7xl mx-auto relative">
         <motion.div
           variants={textVariant()}
-          // initial="hidden"
-          animate={isInView ? "show" : "hidden"}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
           className="text-center mb-20"
         >
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full dark:bg-gray-800/50 bg-gray-100/50 border dark:border-gray-700 border-gray-200">
@@ -188,7 +189,7 @@ function Experience() {
               >
                 <span className="group-hover:-translate-x-1 transition-transform">←</span> Previous
               </button>
-              
+
               <div className="flex gap-2">
                 {experiences.map((_, i) => (
                   <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${activeExp === i ? 'w-8 bg-purple-500' : 'w-2 bg-gray-500/30'}`} />

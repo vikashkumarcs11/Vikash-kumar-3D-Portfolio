@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vikashkumargportfolio.netlify.app/sitemap.xml

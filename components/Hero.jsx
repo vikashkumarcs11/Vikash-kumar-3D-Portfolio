@@ -90,7 +90,7 @@ const heroSocialLinks = [
 
 function Hero({ loading, isMobile }) {
   return (
-    <section className="relative w-full min-h-screen md:h-[800px] flex flex-col  items-center justify-center mx-auto px-6 gap-10">
+    <section className="relative w-full min-h-screen md:h-[650px] flex flex-col   items-center justify-center mx-auto px-6 gap-10">
 
 
 
@@ -140,10 +140,7 @@ function Hero({ loading, isMobile }) {
 
             className=" text-gray-200 text-base md:text-lg leading-relaxed  md:w-3/4"
           >
-            Hi, I&apos;m a passionate <span className="text-cyan-400 font-semibold">BCA graduate</span> specializing in modern web development.
-            I build exceptional digital experiences using <span className="text-blue-400">React</span>,{' '}
-            <span className="text-green-400">Node.js</span>, and cutting-edge technologies.
-            Let&apos;s turn your ideas into reality!
+           
 
 
           </motion.p>
@@ -177,7 +174,7 @@ function Hero({ loading, isMobile }) {
             </div>
 
             {/* Social Links */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <h3 className="text-gray-200 font-medium tracking-wider flex items-center justify-center lg:justify-start gap-2 text-sm">
                 <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
                 CONNECT WITH ME

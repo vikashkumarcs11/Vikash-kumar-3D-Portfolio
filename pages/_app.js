@@ -5,9 +5,21 @@ import { useEffect, useState } from "react";
 
 import "@/styles/globals.css";
 import { PreLoader } from "@/components/Loader";
-
+import { DefaultSeo } from "next-seo";
+import SeoSchema from "@/components/SeoSchema";
 export default function App({ Component, pageProps }) {
 	const [loading, setLoading] = useState(true);
+
+
+
+
+
+
+
+
+
+
+
 
 	useEffect(() => {
 		const MIN_MS = 400;
@@ -97,16 +109,48 @@ export default function App({ Component, pageProps }) {
 		}
 	}, [loading]);
 
-	const title = "Vikash kumar | Portfolio | (Vkr)";
+	const title = "Vikash Kumar | Full Stack MERN Developer — React, Node.js, GraphQL";
 	const description =
 		"Hello! I'm Vikash kumar, a passionate web developer and problem solver. Welcome to my portfolio";
 	const avatar =
 		"https://res.cloudinary.com/dyle3hnpw/image/upload/v1696091629/portfolio/WhatsApp_Image_2023-09-30_at_10.02.55_PM_jk44v9.jpg";
 	const url = "https://vikashkumargportfolio.netlify.app/";
 
+
+
+
+
+
+
+
+
+	// App function ke andar, return se pehle:
+	const SEO_CONFIG = {
+		title: "Vikash Kumar | Full Stack MERN Developer",
+		description:
+			"Full Stack Developer specializing in React.js, Node.js, GraphQL and scalable web apps. Based in Patna, Bihar.",
+		openGraph: {
+			type: "website",
+			url: "https://vikashkumargportfolio.netlify.app/",
+			siteName: "Vikash Kumar Portfolio",
+			images: [{ url: avatar, width: 612, height: 612, alt: "Vikash Kumar" }],
+		},
+		twitter: {
+			handle: "@vikash_kumar",
+			cardType: "summary_large_image",
+		},
+		additionalMetaTags: [
+			{ name: "keywords", content: "Full Stack Developer, MERN Stack, React.js, Node.js, GraphQL, Patna, Bihar, India" },
+			{ name: "author", content: "Vikash Kumar" },
+		],
+	};
+
+
 	return (
 		<>
-			<Head> 
+
+			{/* <DefaultSeo {...SEO_CONFIG} /> */}
+			<Head>
 				<title>{title}</title>
 				<meta name="description" content={description} key="desc" />
 				<meta
@@ -151,7 +195,7 @@ export default function App({ Component, pageProps }) {
 					href="/assets/icons/favicon/site.webmanifest"
 				/>
 			</Head>
-
+			<SeoSchema />
 			<ThemeProvider attribute="class" defaultTheme="dark">
 				<Component {...pageProps} loading={loading} />
 				{loading ? <PreLoader /> : null}

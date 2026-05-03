@@ -241,7 +241,7 @@ export default function UltimatePortfolioShowcase() {
 
       </div>
 
-      <section ref={containerRef} className="relative py-6 px-4 md:px-6 min-h-screen text-white overflow-hidden">
+      <section ref={containerRef} className="relative py-6 px-4  md:px-6 min-h-screen text-white overflow-hidden">
         <div className="md:px-20 px:10 mx-auto relative z-10">
 
 
